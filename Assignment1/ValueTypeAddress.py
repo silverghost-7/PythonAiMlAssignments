@@ -1,4 +1,4 @@
-num=1
-print("Value: ",num)
-print("Type: ",type(num))
-print("Id: ",id(num))
+NUM=1
+print("Value: ",NUM)
+print("Type: ",type(NUM))
+print("Id: ",id(NUM))
