@@ -23,11 +23,10 @@ def main():
     elif (os.path.isdir(sys.argv[2])==False):
         print("Error: '",sys.argv[2],"' is not a directory")
     else:
-        Backup(sys.argv[1],sys.argv[2])
-        #schedule.every().hour.do(Backup,sys.argv[1],sys.argv[2])
-        #while(True):
-            #schedule.run_pending()
-            #time.sleep(60)
+        schedule.every().hour.do(Backup,sys.argv[1],sys.argv[2])
+        while(True):
+            schedule.run_pending()
+            time.sleep(60)
 
 if (__name__=="__main__"):
     main()
