@@ -1,4 +1,4 @@
-import schedule,time,datetime,sys,os
+import schedule,time,datetime,sys,os,shutil
 
 def Backup(fileNameRead, dirPath):
     fObj_read = open(fileNameRead,"r")
@@ -8,15 +8,9 @@ def Backup(fileNameRead, dirPath):
     backupFileName = backupFileName.replace(" ","_")
     backupFileName = backupFileName.replace(":","_")
     backupFileName = backupFileName = backupFileName + ".txt"
-    fObj_write = open(dirPath+"/"+backupFileName,"w")
-    Data = fObj_read.readline()
-    while(Data!=""):
-        fObj_write.write(Data)
-        fObj_write.flush()
-        Data = fObj_read.readline()
-    
-    fObj_read.close()
-    fObj_write.close()
+    shutil.copy2(fileNameRead,dirPath+"/"+backupFileName)    
+    fObjLog = open("backup_log.txt","a")
+    fObjLog.write("Backup completed successfully at "+datetime.datetime.now().replace(microsecond=0).strftime("%d-%m-%Y %I:%M:%S %p")+"\n")
 
 
 def main():
@@ -29,10 +23,11 @@ def main():
     elif (os.path.isdir(sys.argv[2])==False):
         print("Error: '",sys.argv[2],"' is not a directory")
     else:
-        schedule.every().hour.do(Backup,sys.argv[1],sys.argv[2])
-        while(True):
-            schedule.run_pending()
-            time.sleep(60)
+        Backup(sys.argv[1],sys.argv[2])
+        #schedule.every().hour.do(Backup,sys.argv[1],sys.argv[2])
+        #while(True):
+            #schedule.run_pending()
+            #time.sleep(60)
 
 if (__name__=="__main__"):
     main()
