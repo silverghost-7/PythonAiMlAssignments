@@ -41,10 +41,10 @@ def send_notification(subject, body, to_email):
 def CalculateChecksum(filePath):
     fObj = open(filePath,"rb")
     hObj = hashlib.md5()
-    buffer = fObj.read(10)
+    buffer = fObj.read(1024)
     while(len(buffer) > 0):
         hObj.update(buffer)
-        buffer = fObj.read(10)
+        buffer = fObj.read(1024)
     chkSum = hObj.hexdigest()
     return chkSum
 
