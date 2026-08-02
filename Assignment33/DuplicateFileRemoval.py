@@ -45,6 +45,7 @@ def CalculateChecksum(filePath):
     while(len(buffer) > 0):
         hObj.update(buffer)
         buffer = fObj.read(1024)
+    fObj.close()
     chkSum = hObj.hexdigest()
     return chkSum
 
